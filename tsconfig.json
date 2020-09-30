@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es2016",
+    "lib": ["es2018"],
+    "module": "CommonJS",
+    "strict": true,
+    "esModuleInterop": true,
+    "outDir": "./dist/",
+    "declaration": true,
+    "sourceMap": true
+  },
+  "typedocOptions": {
+    "mode": "modules",
+    "out": "docs"
+  },
+  "include": ["src"]
+}

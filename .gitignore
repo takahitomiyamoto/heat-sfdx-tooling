@@ -1,0 +1,5 @@
+dist/
+node_modules/
+.memorandum.txt
+.DS_Store
+heat-sfdx-tooling-*.tgz

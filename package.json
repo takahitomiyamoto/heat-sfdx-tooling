@@ -1,0 +1,22 @@
+{
+  "name": "heat-sfdx-tooling",
+  "version": "0.0.1",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prettier": "prettier \"**/*.{ts,json,md}\" --write --loglevel log",
+    "typedoc": "typedoc --out docs src && touch docs/.nojekyll"
+  },
+  "devDependencies": {
+    "prettier": "2.1.2",
+    "typedoc": "0.19.2"
+  },
+  "dependencies": {
+    "heat-sfdx-common": "0.1.14",
+    "typescript": "4.0.3"
+  }
+}
