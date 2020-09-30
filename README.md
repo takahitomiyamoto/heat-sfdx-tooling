@@ -1,3 +1,9 @@
+![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)
+![npm version](https://badge.fury.io/js/heat-sfdx-tooling.svg)](https://badge.fury.io/js/heat-sfdx-tooling)
+![dependencies status](https://david-dm.org/takahitomiyamoto/heat-sfdx-tooling.svg)](https://david-dm.org/takahitomiyamoto/heat-sfdx-tooling)
+![devDependency status](https://david-dm.org/takahitomiyamoto/heat-sfdx-tooling/dev-status.svg)](https://david-dm.org/takahitomiyamoto/heat-sfdx-tooling#info=devDependencies)
+![Code Climate](https://codeclimate.com/github/takahitomiyamoto/heat-sfdx-tooling.svg)](https://codeclimate.com/github/takahitomiyamoto/heat-sfdx-tooling)
+
 # heat-sfdx-tooling
 
 This package is responsible for the Tooling API features of the heat-sfdx series.
