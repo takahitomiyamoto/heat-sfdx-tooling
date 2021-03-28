@@ -10,7 +10,6 @@
     "sourceMap": true
   },
   "typedocOptions": {
-    "mode": "modules",
     "out": "docs"
   },
   "include": ["src"]
