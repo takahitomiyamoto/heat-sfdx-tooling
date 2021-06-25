@@ -1531,7 +1531,7 @@ async function runBatch(params: any) {
     accessToken: params.accessToken,
     instanceUrl: params.instanceUrl,
     asOfVersion: params.asOfVersion,
-    MetadataContainerId: params.metadataContainerId,
+    metadataContainerId: params.metadataContainerId,
     createContainerAsyncRequest: params.createContainerAsyncRequest
   });
 
