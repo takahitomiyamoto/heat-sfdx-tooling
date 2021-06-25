@@ -1544,7 +1544,9 @@ async function runBatch(params: any) {
   // retrieve ContainerAsyncRequest - State
   let containerAsyncRequest;
   while (COMPLETED !== containerAsyncRequest?.status) {
-    console.log(containerAsyncRequest?.errorMsg);
+    if (containerAsyncRequest?.errorMsg) {
+      console.error('ErrorMsg', containerAsyncRequest?.errorMsg);
+    }
     containerAsyncRequest = await asyncRetrieveContainerAsyncRequest({
       accessToken: params.accessToken,
       instanceUrl: params.instanceUrl,
@@ -1577,6 +1579,8 @@ async function runBatch(params: any) {
   });
   await generateDocs({
     apexNames: apexNames,
+    retrieveLogFile: params.retrieveLogFile,
+    symbolTableFolder: params.symbolTableFolder,
     fileExtension: params.fileExtension,
     outputDir: params.outputDir,
     rawDataFolder: params.rawDataFolder
