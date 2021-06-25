@@ -415,7 +415,7 @@ async function asyncRetrieveContainerAsyncRequest(params: any) {
     options: {
       asOfVersion: params.asOfVersion,
       id: params.containerAsyncRequestId,
-      fields: ['Id', 'State', 'MetadataContainerId']
+      fields: ['Id', 'State', 'MetadataContainerId', 'ErrorMsg']
     }
   });
 
