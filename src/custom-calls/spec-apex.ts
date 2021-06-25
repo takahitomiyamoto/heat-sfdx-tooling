@@ -241,17 +241,18 @@ const sleep = (sec: number) => {
  * @param {*} environment
  * @param {*} apexType
  */
-const setConfig = (environment: any, apexType: string) => {
+const setConfig = (params: any, apexType: string) => {
   switch (apexType) {
     case 'ApexClass':
       return {
         apexMember: 'ApexClassMember',
         getApex: getApexClasses,
-        retrieveLogFile: environment.logs.retrieveApexClasses,
-        createLogFile: environment.logs.createApexClassMembers,
-        symbolTableFolder: environment.logs.apexClass.symbolTable,
-        rawDataFolder: environment.logs.apexClass.rawData,
-        docsFolder: environment.docs.apexClass,
+        retrieveLogFile: params.options.environment.logs.retrieveApexClasses,
+        createLogFile: params.options.environment.logs.createApexClassMembers,
+        symbolTableFolder:
+          params.options.environment.logs.apexClass.symbolTable,
+        rawDataFolder: params.options.environment.logs.apexClass.rawData,
+        outputDir: params.options.outputDir.class,
         fileExtension: '.cls',
         fields: [
           'Id',
@@ -268,11 +269,12 @@ const setConfig = (environment: any, apexType: string) => {
       return {
         apexMember: 'ApexTriggerMember',
         getApex: getApexTriggers,
-        retrieveLogFile: environment.logs.retrieveApexTriggers,
-        createLogFile: environment.logs.createApexTriggerMembers,
-        symbolTableFolder: environment.logs.apexTrigger.symbolTable,
-        rawDataFolder: environment.logs.apexTrigger.rawData,
-        docsFolder: environment.docs.apexTrigger,
+        retrieveLogFile: params.options.environment.logs.retrieveApexTriggers,
+        createLogFile: params.options.environment.logs.createApexTriggerMembers,
+        symbolTableFolder:
+          params.options.environment.logs.apexTrigger.symbolTable,
+        rawDataFolder: params.options.environment.logs.apexTrigger.rawData,
+        outputDir: params.options.outputDir.trigger,
         fileExtension: '.trigger',
         fields: [
           'Id',
@@ -1492,7 +1494,7 @@ const generateMarkdownSpecs = (params: any, apexMember: string) => {
   }
 
   // archive
-  writeFileSyncUtf8(`${params.docsFolder}/${apexMember}.md`, json2md(md));
+  writeFileSyncUtf8(`${params.outputDir}/${apexMember}.md`, json2md(md));
 
   // raw data
   const filename = `${params.rawDataFolder}/${apexMember}.raw.md`;
@@ -1576,7 +1578,7 @@ async function runBatch(params: any) {
   await generateDocs({
     apexNames: apexNames,
     fileExtension: params.fileExtension,
-    docsFolder: params.docsFolder,
+    outputDir: params.outputDir,
     rawDataFolder: params.rawDataFolder
   });
 }
@@ -1607,17 +1609,13 @@ async function buildApexSpecs(config: any, params: authorization) {
   });
 
   // run the batch operation because the request can’t contain more than 25 operations.
-  // const size = JSON.parse(readFileSyncUtf8(config.retrieveLogFile)).size;
-  console.log('apexRecords.length', apexRecords.length);
   const apexRecordsNotManaged = apexRecords.filter((r: any) => {
     return !MANAGED.includes(r.ManageableState);
   });
   const size = apexRecordsNotManaged.length;
-  console.log('apexRecordsNotManaged.length', size);
   const scope = COMPOSITE_OPERATIONS_LIMIT;
   let start = 0;
   while (start < Math.ceil(size / scope)) {
-    // const apex = apexRecords.slice(start, start + scope - 1);
     const apex = apexRecordsNotManaged.slice(start, start + scope - 1);
 
     /**
@@ -1638,7 +1636,7 @@ async function buildApexSpecs(config: any, params: authorization) {
       apexMember: config.apexMember,
       createLogFile: config.createLogFile,
       fileExtension: config.fileExtension,
-      docsFolder: config.docsFolder,
+      outputDir: config.outputDir,
       rawDataFolder: config.rawDataFolder,
       retrieveLogFile: config.retrieveLogFile,
       symbolTableFolder: config.symbolTableFolder,
@@ -1657,7 +1655,7 @@ async function buildApexSpecs(config: any, params: authorization) {
  * @param params
  */
 export async function buildApexClassSpecs(params: authorization) {
-  const config = setConfig(params.options.environment, 'ApexClass');
+  const config = setConfig(params, 'ApexClass');
   return await buildApexSpecs(config, params);
 }
 
@@ -1666,6 +1664,6 @@ export async function buildApexClassSpecs(params: authorization) {
  * @param params
  */
 export async function buildApexTriggerSpecs(params: authorization) {
-  const config = setConfig(params.options.environment, 'ApexTrigger');
+  const config = setConfig(params, 'ApexTrigger');
   return await buildApexSpecs(config, params);
 }
