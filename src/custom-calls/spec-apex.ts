@@ -841,9 +841,11 @@ const createTarget = (params: any, body: any, funcs: any) => {
  * @param {*} parameters
  */
 const createParameters = (parameters: any) => {
-  return parameters.map((param: any) => {
-    return `${param.type} ${param.name}`;
-  });
+  return !parameters
+    ? []
+    : parameters.map((param: any) => {
+        return `${param.type} ${param.name}`;
+      });
 };
 
 /**
@@ -1279,29 +1281,33 @@ const createInnerClasses = (params: any) => {
   const innerClasses = params.items;
   const body = params.body;
 
-  return innerClasses.map((inne: any) => {
-    const innerClass = {
-      annotations: inne.tableDeclaration.annotations,
-      modifiers: inne.tableDeclaration.modifiers,
-      name: inne.name,
-      parentClass: inne.parentClass,
-      interfaces: inne.interfaces
-    };
+  return !innerClasses
+    ? []
+    : innerClasses.map((inne: any) => {
+        const innerClass = {
+          annotations: inne.tableDeclaration.annotations,
+          modifiers: inne.tableDeclaration.modifiers,
+          name: inne.name,
+          parentClass: inne.parentClass,
+          interfaces: inne.interfaces
+        };
 
-    const result = [];
-    result.push(
-      createTarget(innerClass, body, {
-        fetchItem: _fetchItem,
-        createTitle: _createTitle,
-        createTableTarget: createTableClass
-      })
-    );
-    result.push([createInnerExternalReferencesArea(inne.externalReferences)]);
-    result.push([createInnerConstructorsArea(inne.constructors)]);
-    result.push([createInnerPropertiesArea(inne.properties)]);
+        const result = [];
+        result.push(
+          createTarget(innerClass, body, {
+            fetchItem: _fetchItem,
+            createTitle: _createTitle,
+            createTableTarget: createTableClass
+          })
+        );
+        result.push([
+          createInnerExternalReferencesArea(inne.externalReferences)
+        ]);
+        result.push([createInnerConstructorsArea(inne.constructors)]);
+        result.push([createInnerPropertiesArea(inne.properties)]);
 
-    return result;
-  });
+        return result;
+      });
 };
 
 /**
@@ -1312,13 +1318,15 @@ const createProperties = (params: any) => {
   const properties = params.items;
   const body = params.body;
 
-  return properties.map((prop: any) => {
-    return createTarget(prop, body, {
-      fetchItem: _fetchItem,
-      createTitle: _createTitle,
-      createTableTarget: createTableProperties
-    });
-  });
+  return !properties
+    ? []
+    : properties.map((prop: any) => {
+        return createTarget(prop, body, {
+          fetchItem: _fetchItem,
+          createTitle: _createTitle,
+          createTableTarget: createTableProperties
+        });
+      });
 };
 
 /**
@@ -1329,13 +1337,15 @@ const createConstructors = (params: any) => {
   const constructors = params.items;
   const body = params.body;
 
-  return constructors.map((cons: any) => {
-    return createTarget(cons, body, {
-      fetchItem: _fetchItem,
-      createTitle: _createTitle,
-      createTableTarget: createTableConstructors
-    });
-  });
+  return !constructors
+    ? []
+    : constructors.map((cons: any) => {
+        return createTarget(cons, body, {
+          fetchItem: _fetchItem,
+          createTitle: _createTitle,
+          createTableTarget: createTableConstructors
+        });
+      });
 };
 
 /**
