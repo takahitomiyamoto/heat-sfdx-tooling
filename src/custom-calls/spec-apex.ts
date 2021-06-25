@@ -478,9 +478,11 @@ const _getJsonApex = (params: any, apexMember: string) => {
   const stringApex = readFileSyncUtf8(`${params.retrieveLogFile}`);
   const records = JSON.parse(stringApex).records;
 
-  return records.filter((record: any) => {
-    return apexMember === record.Name;
-  })[0];
+  return !records
+    ? []
+    : records.filter((record: any) => {
+        return apexMember === record.Name;
+      })[0];
 };
 
 /**
@@ -903,9 +905,11 @@ const _fetchItem = (cons: any, body: any) => {
   const parameters = createParameters(cons.parameters);
   const modifiers = getModifiers(cons.modifiers);
   const signature = `${modifiers} ${cons.name}(${parameters.join(', ')})`;
-  const item = body.constructors.filter((i: any) => {
-    return signature === i.signature;
-  });
+  const item = !body?.constructors
+    ? []
+    : body.constructors.filter((i: any) => {
+        return signature === i.signature;
+      });
   return !item.length ? null : item[0];
 };
 
