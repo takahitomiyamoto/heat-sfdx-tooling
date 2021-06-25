@@ -761,7 +761,7 @@ const createTableApexDoc = (item: any) => {
  * @description createListApexDoc
  * @param {*} item
  */
-export const createListApexDoc = (item: any) => {
+const createListApexDoc = (item: any) => {
   return !item
     ? { p: '' }
     : {
@@ -775,7 +775,7 @@ export const createListApexDoc = (item: any) => {
  * @description convertSignature
  * @param {*} signature
  */
-export const convertSignature = (signature: string) => {
+const convertSignature = (signature: string) => {
   return signature
     .replace(REGEXP_PARAM_LEFT_PARENTHESIS, '(\n  ')
     .replace(REGEXP_PARAM_RIGHT_PARENTHESIS, '\n)')
@@ -797,7 +797,7 @@ const _createCodeContent = (item: any) => {
  * @description createCode
  * @param {*} item
  */
-export const createCode = (item: any) => {
+const createCode = (item: any) => {
   return !item
     ? { p: '' }
     : {
@@ -834,7 +834,7 @@ const createTarget = (params: any, body: any, funcs: any) => {
  * @description createParameters
  * @param {*} parameters
  */
-export const createParameters = (parameters: any) => {
+const createParameters = (parameters: any) => {
   return parameters.map((param: any) => {
     return `${param.type} ${param.name}`;
   });
@@ -857,7 +857,7 @@ const getModifierItems = (modifiers: any) => {
  * @description convert
  * @param {*} value
  */
-export const convert = (value: string) => {
+const convert = (value: string) => {
   switch (value) {
     case 'static public':
       return 'public static';
@@ -882,7 +882,7 @@ export const convert = (value: string) => {
  * @name getModifiers
  * @param {*} modifiers
  */
-export const getModifiers = (modifiers: any) => {
+const getModifiers = (modifiers: any) => {
   return convert(getModifierItems(modifiers).join(' '));
 };
 
@@ -963,7 +963,7 @@ const getAnnotationNames = (annotations: any) => {
  * @name getAnnotations
  * @param {*} annotations
  */
-export const getAnnotations = (annotations: any) => {
+const getAnnotations = (annotations: any) => {
   return convert(getAnnotationNames(annotations).join(' '));
 };
 
@@ -971,7 +971,7 @@ export const getAnnotations = (annotations: any) => {
  * @description getInterfaceNames
  * @param {*} interfaces
  */
-export const getInterfaceNames = (interfaces: any) => {
+const getInterfaceNames = (interfaces: any) => {
   if (!interfaces.length) {
     return ['-'];
   }
@@ -984,7 +984,7 @@ export const getInterfaceNames = (interfaces: any) => {
  * @description createTableRowClass
  * @param {*} params
  */
-export const createTableRowClass = (params: any) => {
+const createTableRowClass = (params: any) => {
   const annotations = getAnnotations(params.annotations);
   const modifiers = getModifiers(params.modifiers);
   const parentClass = !params.parentClass ? '-' : params.parentClass;
@@ -1003,7 +1003,7 @@ export const createTableRowClass = (params: any) => {
  * @description createTableClass
  * @param {*} params
  */
-export const createTableClass = (params: any) => {
+const createTableClass = (params: any) => {
   return createTable(params, TABLE_HEADER_CLASS, {
     createTableRow: createTableRowClass
   });
@@ -1029,7 +1029,7 @@ const _createTableRowTrigger = (params: any) => {
  * @description createTableTrigger
  * @param {*} params
  */
-export const createTableTrigger = (params: any) => {
+const createTableTrigger = (params: any) => {
   return createTable(params, TABLE_HEADER_TRIGGER, {
     createTableRow: _createTableRowTrigger
   });
@@ -1127,7 +1127,7 @@ const _createArea = (config: any, params: any) => {
  * @description createTableExternalReferences
  * @param {*} params
  */
-export const createTableExternalReferences = (params: any) => {
+const createTableExternalReferences = (params: any) => {
   return createTable(params, TABLE_HEADER_EXTERNAL_REFERENCES, {
     createTableRow: _createTableRow,
     createTableRows: _createTableRows
@@ -1138,7 +1138,7 @@ export const createTableExternalReferences = (params: any) => {
  * @description createExternalReferences
  * @param {*} params
  */
-export const createExternalReferences = (params: any) => {
+const createExternalReferences = (params: any) => {
   const externalReferences = params.items;
   return createTableExternalReferences(externalReferences);
 };
@@ -1147,7 +1147,7 @@ export const createExternalReferences = (params: any) => {
  * @description createInnerExternalReferencesArea
  * @param {*} params
  */
-export const createInnerExternalReferencesArea = (params: any) => {
+const createInnerExternalReferencesArea = (params: any) => {
   const result = [];
   result.push({ h4: TITLE_EXTERNAL_REFERENCES });
 
@@ -1196,7 +1196,7 @@ const _createTableRowsConstructors = (params: any, funcs: any) => {
  * @description createTableConstructors
  * @param {*} params
  */
-export const createTableConstructors = (params: any) => {
+const createTableConstructors = (params: any) => {
   return createTable(params, TABLE_HEADER_CONSTRUCTORS, {
     createTableRow: _createTableRowConstructors,
     createTableRows: _createTableRowsConstructors
@@ -1207,7 +1207,7 @@ export const createTableConstructors = (params: any) => {
  * @description createInnerConstructorsArea
  * @param {*} params
  */
-export const createInnerConstructorsArea = (params: any) => {
+const createInnerConstructorsArea = (params: any) => {
   const result = [];
   result.push({ h4: TITLE_CONSTRUCTORS });
 
@@ -1224,7 +1224,7 @@ export const createInnerConstructorsArea = (params: any) => {
  * @description createTableRowProperty
  * @param {*} params
  */
-export const createTableRowProperty = (params: any) => {
+const createTableRowProperty = (params: any) => {
   const annotations = getAnnotations(params.annotations);
   const modifiers = getModifiers(params.modifiers);
 
@@ -1241,7 +1241,7 @@ export const createTableRowProperty = (params: any) => {
  * @param {*} params
  * @param {*} funcs
  */
-export const createTableProperties = (params: any) => {
+const createTableProperties = (params: any) => {
   return createTable(params, TABLE_HEADER_PROPERTIES, {
     createTableRow: createTableRowProperty,
     createTableRows: _createTableRows
@@ -1252,7 +1252,7 @@ export const createTableProperties = (params: any) => {
  * @description createInnerPropertiesArea
  * @param {*} params
  */
-export const createInnerPropertiesArea = (params: any) => {
+const createInnerPropertiesArea = (params: any) => {
   const result = [];
   result.push({ h4: TITLE_PROPERTIES });
 
@@ -1269,7 +1269,7 @@ export const createInnerPropertiesArea = (params: any) => {
  * @description createInnerClasses
  * @param {*} params
  */
-export const createInnerClasses = (params: any) => {
+const createInnerClasses = (params: any) => {
   const innerClasses = params.items;
   const body = params.body;
 
@@ -1302,7 +1302,7 @@ export const createInnerClasses = (params: any) => {
  * @description createProperties
  * @param {*} params
  */
-export const createProperties = (params: any) => {
+const createProperties = (params: any) => {
   const properties = params.items;
   const body = params.body;
 
@@ -1319,7 +1319,7 @@ export const createProperties = (params: any) => {
  * @description createConstructors
  * @param {*} params
  */
-export const createConstructors = (params: any) => {
+const createConstructors = (params: any) => {
   const constructors = params.items;
   const body = params.body;
 
@@ -1346,7 +1346,7 @@ const _createTableMethods = (meth: any) => {
  * @description createMethods
  * @param {*} params
  */
-export const createMethods = (params: any) => {
+const createMethods = (params: any) => {
   const methods = params.items;
   const body = params.body;
 
