@@ -405,10 +405,10 @@ async function asyncCreateContainerAsyncRequestId(params: any) {
 }
 
 /**
- * @description asyncRetrieveContainerAsyncRequestState
+ * @description asyncRetrieveContainerAsyncRequest
  * @param {*} params
  */
-async function asyncRetrieveContainerAsyncRequestState(params: any) {
+async function asyncRetrieveContainerAsyncRequest(params: any) {
   const responseString = await getContainerAsyncRequest({
     accessToken: params.accessToken,
     instanceUrl: params.instanceUrl,
@@ -423,7 +423,10 @@ async function asyncRetrieveContainerAsyncRequestState(params: any) {
   writeFileSyncUtf8(params.retrieveContainerAsyncRequests, responseString);
   console.log(params.retrieveContainerAsyncRequests);
 
-  return JSON.parse(responseString).records[0].State;
+  return {
+    status: JSON.parse(responseString).records[0].State,
+    errorMsg: JSON.parse(responseString).records[0].ErrorMsg
+  };
 }
 
 /**
@@ -1536,9 +1539,10 @@ async function runBatch(params: any) {
   });
 
   // retrieve ContainerAsyncRequest - State
-  let containerAsyncRequestState;
-  while (COMPLETED !== containerAsyncRequestState) {
-    containerAsyncRequestState = await asyncRetrieveContainerAsyncRequestState({
+  let containerAsyncRequest;
+  while (COMPLETED !== containerAsyncRequest?.status) {
+    console.log(containerAsyncRequest?.errorMsg);
+    containerAsyncRequest = await asyncRetrieveContainerAsyncRequest({
       accessToken: params.accessToken,
       instanceUrl: params.instanceUrl,
       asOfVersion: params.asOfVersion,
