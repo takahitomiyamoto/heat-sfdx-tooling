@@ -1608,12 +1608,12 @@ async function buildApexSpecs(config: any, params: authorization) {
 
   // run the batch operation because the request can’t contain more than 25 operations.
   // const size = JSON.parse(readFileSyncUtf8(config.retrieveLogFile)).size;
-  console.log('apexRecords.size', apexRecords.size);
+  console.log('apexRecords.length', apexRecords.length);
   const apexRecordsNotManaged = apexRecords.filter((r: any) => {
     return !MANAGED.includes(r.ManageableState);
   });
-  const size = apexRecordsNotManaged.size;
-  console.log('apexRecordsNotManaged.size', size);
+  const size = apexRecordsNotManaged.length;
+  console.log('apexRecordsNotManaged.length', size);
   const scope = COMPOSITE_OPERATIONS_LIMIT;
   let start = 0;
   while (start < Math.ceil(size / scope)) {
