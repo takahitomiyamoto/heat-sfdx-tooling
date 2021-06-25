@@ -1356,13 +1356,15 @@ const createMethods = (params: any) => {
   const methods = params.items;
   const body = params.body;
 
-  return methods.map((meth: any) => {
-    return createTarget(meth, body, {
-      fetchItem: _fetchItem,
-      createTitle: _createTitle,
-      createTableTarget: _createTableMethods
-    });
-  });
+  return !methods
+    ? []
+    : methods.map((meth: any) => {
+        return createTarget(meth, body, {
+          fetchItem: _fetchItem,
+          createTitle: _createTitle,
+          createTableTarget: _createTableMethods
+        });
+      });
 };
 
 /**
