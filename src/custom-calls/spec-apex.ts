@@ -21,6 +21,7 @@ import json2md from 'json2md';
 const COMPOSITE_OPERATIONS_LIMIT = 25;
 const RETRIEVE_LIMIT = 50000;
 const COMPLETED = 'Completed';
+const MANAGED = ['installed'];
 
 /*********************
  * common
@@ -1606,11 +1607,18 @@ async function buildApexSpecs(config: any, params: authorization) {
   });
 
   // run the batch operation because the request can’t contain more than 25 operations.
-  const size = JSON.parse(readFileSyncUtf8(config.retrieveLogFile)).size;
+  // const size = JSON.parse(readFileSyncUtf8(config.retrieveLogFile)).size;
+  console.log('apexRecords.size', apexRecords.size);
+  const apexRecordsNotManaged = apexRecords.filter((r: any) => {
+    return !MANAGED.includes(r.ManageableState);
+  });
+  const size = apexRecordsNotManaged.size;
+  console.log('apexRecordsNotManaged.size', size);
   const scope = COMPOSITE_OPERATIONS_LIMIT;
   let start = 0;
   while (start < Math.ceil(size / scope)) {
-    const apex = apexRecords.slice(start, start + scope - 1);
+    // const apex = apexRecords.slice(start, start + scope - 1);
+    const apex = apexRecordsNotManaged.slice(start, start + scope - 1);
 
     /**
      * 1. create ApexClassMembers / ApexTriggerMembers
