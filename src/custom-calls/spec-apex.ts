@@ -750,7 +750,7 @@ const _createTableRowsApexDoc = (item: any) => {
     return 'description' === tag.key;
   });
 
-  const value = !descriptionTag.length ? NO_DATA : descriptionTag[0].value;
+  const value = !descriptionTag?.length ? NO_DATA : descriptionTag[0].value;
 
   return [[value]];
 };
@@ -855,7 +855,7 @@ const createParameters = (parameters: any) => {
  * @param {*} modifiers
  */
 const getModifierItems = (modifiers: any) => {
-  if (!modifiers.length) {
+  if (!modifiers?.length) {
     return ['-'];
   }
   return modifiers.map((modi: any) => {
@@ -910,7 +910,7 @@ const _fetchItem = (cons: any, body: any) => {
     : body.constructors.filter((i: any) => {
         return signature === i.signature;
       });
-  return !item.length ? null : item[0];
+  return !item?.length ? null : item[0];
 };
 
 /**
@@ -963,7 +963,7 @@ const _createHeaderArea = (params: any, funcs: any) => {
  * @param {*} annotations
  */
 const getAnnotationNames = (annotations: any) => {
-  if (!annotations.length) {
+  if (!annotations?.length) {
     return ['-'];
   }
   return annotations.map((anno: any) => {
@@ -984,7 +984,7 @@ const getAnnotations = (annotations: any) => {
  * @param {*} interfaces
  */
 const getInterfaceNames = (interfaces: any) => {
-  if (!interfaces.length) {
+  if (!interfaces?.length) {
     return ['-'];
   }
   return interfaces.map((inte: any) => {
@@ -1126,7 +1126,7 @@ const _createArea = (config: any, params: any) => {
   const result = [];
   result.push({ h2: config.title });
 
-  if (!params.items.length) {
+  if (!params?.items?.length) {
     result.push({ p: NOT_APPLICABLE });
   } else {
     result.push(config.create(params));
@@ -1163,7 +1163,7 @@ const createInnerExternalReferencesArea = (params: any) => {
   const result = [];
   result.push({ h4: TITLE_EXTERNAL_REFERENCES });
 
-  if (!params.length) {
+  if (!params?.length) {
     return [];
   }
 
@@ -1179,7 +1179,7 @@ const createInnerExternalReferencesArea = (params: any) => {
 const _createTableRowConstructors = (cons: any) => {
   const annotations = getAnnotations(cons.annotations);
   const modifiers = getModifiers(cons.modifiers);
-  const parameters = !cons.parameters.length
+  const parameters = !cons?.parameters?.length
     ? '-'
     : createParameters(cons.parameters).join(',<br>');
 
@@ -1197,7 +1197,7 @@ const _createTableRowConstructors = (cons: any) => {
  * @param {*} funcs
  */
 const _createTableRowsConstructors = (params: any, funcs: any) => {
-  return !params.length
+  return !params?.length
     ? [funcs.createTableRow(params)]
     : params.map((cons: any) => {
         return funcs.createTableRow(cons);
@@ -1223,7 +1223,7 @@ const createInnerConstructorsArea = (params: any) => {
   const result = [];
   result.push({ h4: TITLE_CONSTRUCTORS });
 
-  if (!params.length) {
+  if (!params?.length) {
     return [];
   }
 
@@ -1268,7 +1268,7 @@ const createInnerPropertiesArea = (params: any) => {
   const result = [];
   result.push({ h4: TITLE_PROPERTIES });
 
-  if (!params.length) {
+  if (!params?.length) {
     return [];
   }
 
