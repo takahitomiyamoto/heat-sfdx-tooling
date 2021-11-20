@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * metadata-container.ts
  */
@@ -12,8 +14,7 @@ const setOptionsQueryContainerAsyncRequest = (
   params: authorization
 ): https.RequestOptions => {
   const hostname = params.instanceUrl.replace('https://', '');
-  const fields = params.options.fields.join('+,');
-  const optionsLimit = params.options.limit ? params.options.limit : 50000;
+  const fields = params.options.fields.join(',');
   const path = `/services/data/v${params.options.asOfVersion}/tooling/query/?q=select+${fields}+from+ContainerAsyncRequest+where+Id+=+'${params.options.id}'`;
 
   return {
@@ -53,7 +54,10 @@ const setOptionsPostContainerAsyncRequest = (
  * @description GET ContainerAsyncRequest
  */
 async function getContainerAsyncRequest(params: authorization) {
-  return await httpRequest(setOptionsQueryContainerAsyncRequest(params));
+  const _options = setOptionsQueryContainerAsyncRequest(params);
+  const _requestBody = '';
+
+  return await httpRequest(_options, _requestBody);
 }
 
 /**
@@ -61,10 +65,9 @@ async function getContainerAsyncRequest(params: authorization) {
  * @description POST ContainerAsyncRequest
  */
 async function postContainerAsyncRequest(params: authorization) {
-  return await httpRequest(
-    setOptionsPostContainerAsyncRequest(params),
-    JSON.stringify(params.options.body)
-  );
+  const _options = setOptionsPostContainerAsyncRequest(params);
+  const _requestBody = JSON.stringify(params.options.body);
+  return await httpRequest(_options, _requestBody);
 }
 
 export { getContainerAsyncRequest, postContainerAsyncRequest };

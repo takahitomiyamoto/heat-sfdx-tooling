@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /**
  * apex-trigger.ts
  */
@@ -12,7 +14,7 @@ const setOptionsQueryApexTriggers = (
   params: authorization
 ): https.RequestOptions => {
   const hostname = params.instanceUrl.replace('https://', '');
-  const fields = params.options.fields.join('+,');
+  const fields = params.options.fields.join(',');
   const optionsLimit = params.options.limit ? params.options.limit : 50000;
   const path = `/services/data/v${params.options.asOfVersion}/tooling/query/?q=select+${fields}+from+ApexTrigger+order+by+Name+limit+${optionsLimit}`;
 
@@ -32,7 +34,10 @@ const setOptionsQueryApexTriggers = (
  * @description GET List of ApexTriggers
  */
 async function getApexTriggers(params: authorization) {
-  return await httpRequest(setOptionsQueryApexTriggers(params), '');
+  const _options = setOptionsQueryApexTriggers(params);
+  const _requestBody = '';
+
+  return await httpRequest(_options, _requestBody);
 }
 
 export { getApexTriggers };

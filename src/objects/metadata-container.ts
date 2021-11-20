@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * metadata-container.ts
  */
@@ -52,7 +53,10 @@ const setOptionsPostMetadataContainer = (
  * @description GET MetadataContainer List
  */
 async function getMetadataContainerList(params: authorization) {
-  return await httpRequest(setOptionsQueryMetadataContainer(params));
+  const _options = setOptionsQueryMetadataContainer(params);
+  const _requestBody = '';
+
+  return await httpRequest(_options, _requestBody);
 }
 
 /**
@@ -60,10 +64,10 @@ async function getMetadataContainerList(params: authorization) {
  * @description POST ApexClass
  */
 async function postMetadataContainer(params: authorization) {
-  return await httpRequest(
-    setOptionsPostMetadataContainer(params),
-    JSON.stringify(params.options.body)
-  );
+  const _options = setOptionsPostMetadataContainer(params);
+  const _requestBody = JSON.stringify(params.options.body);
+
+  return await httpRequest(_options, _requestBody);
 }
 
 export { getMetadataContainerList, postMetadataContainer };

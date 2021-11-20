@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * composite.ts
  */
@@ -30,10 +31,10 @@ const setOptionsPostComposite = (
  * @description POST Composite
  */
 async function postComposite(params: authorization) {
-  return await httpRequest(
-    setOptionsPostComposite(params),
-    JSON.stringify(params.options.body)
-  );
+  const _options = setOptionsPostComposite(params);
+  const _requestBody = JSON.stringify(params.options.body);
+
+  return await httpRequest(_options, _requestBody);
 }
 
 export { postComposite };

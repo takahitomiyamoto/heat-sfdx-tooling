@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /**
  * profile.ts
  */
@@ -26,7 +27,10 @@ const setOptionsProfileId = (params: authorization): https.RequestOptions => {
  * @description GET Profile
  */
 async function getProfile(params: authorization) {
-  const result: any = await httpRequest(setOptionsProfileId(params), '');
+  const _options = setOptionsProfileId(params);
+  const _requestBody = '';
+
+  const result = await httpRequest(_options, _requestBody);
   return result;
 }
 

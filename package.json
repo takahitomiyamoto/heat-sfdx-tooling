@@ -1,6 +1,6 @@
 {
   "name": "heat-sfdx-tooling",
-  "version": "0.1.13",
+  "version": "0.1.15",
   "license": "MIT",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -9,17 +9,21 @@
   ],
   "scripts": {
     "prettier": "prettier \"**/*.{ts,json,md}\" --write --loglevel log",
-    "typedoc": "typedoc --out docs src && touch docs/.nojekyll"
+    "typedoc": "typedoc --out docs src && touch docs/.nojekyll",
+    "eslint": "eslint src/"
   },
   "devDependencies": {
-    "prettier": "2.3.1",
-    "typedoc": "0.21.1"
+    "@typescript-eslint/eslint-plugin": "5.4.0",
+    "@typescript-eslint/parser": "5.4.0",
+    "eslint": "8.2.0",
+    "prettier": "2.4.1",
+    "typedoc": "0.22.9"
   },
   "dependencies": {
-    "@types/json2md": "1.5.0",
-    "heat-sfdx-common": "0.1.18",
-    "json2md": "1.10.0",
-    "typescript": "4.3.4",
+    "@types/json2md": "1.5.1",
+    "heat-sfdx-common": "0.2.0",
+    "json2md": "1.12.0",
+    "typescript": "4.5.2",
     "uuid": "8.3.2"
   }
 }
