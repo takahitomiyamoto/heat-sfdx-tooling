@@ -5,8 +5,8 @@
  * index.ts
  */
 import { authorization } from 'heat-sfdx-common';
-import { asyncCreateMetadataContainerId } from './async-create';
-import { asyncRetrieveApex } from './async-retrieve';
+import { asyncCreateMetadataContainerId } from './api/async-create';
+import { asyncRetrieveApex } from './api/async-retrieve';
 import { runBatch } from './batch';
 
 // The request in POST /tooling/composite can’t contain more than 25 operations.
