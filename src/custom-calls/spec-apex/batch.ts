@@ -9,11 +9,11 @@ import { authorization, writeFileSyncUtf8 } from 'heat-sfdx-common';
 import {
   asyncCreateApexMembers,
   asyncCreateContainerAsyncRequestId
-} from './async-create';
+} from './api/async-create';
 import {
   asyncRetrieveContainerAsyncRequest,
   asyncRetrieveApexMembers
-} from './async-retrieve';
+} from './api/async-retrieve';
 import { generateDocs } from './docs';
 
 const COMPLETED = 'Completed';
