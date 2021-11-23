@@ -81,6 +81,14 @@ export const buildInnerClasses = (auth: authorization) => {
     });
   }
 
+  //   const innerClasses = extractApexDoc(body, regexp);
+  //   console.info(`\n## Inner Class`);
+  //   console.info(JSON.stringify(innerClasses));
+
+  //   return {
+  //     innerClasses: innerClasses
+  //   };
+
   return result;
 };
 
@@ -107,6 +115,30 @@ export const buildProperties = (auth: authorization) => {
     });
   }
 
+  //   return _parseBodyProperties(body, [
+  //     {
+  //       target: REGEXP_PROPERTY,
+  //       tags: REGEXP_TAGS_PROPERTY,
+  //       tagsArea: REGEXP_TAGS_AREA_PROPERTY,
+  //       annotationsEnd: REGEXP_ANNOTATIONS_END_PROPERTY,
+  //       signatureStart: REGEXP_SIGNATURE_START_PROPERTY,
+  //       signatureEnd: REGEXP_SIGNATURE_END_PROPERTY
+  //     },
+  //     {
+  //       target: REGEXP_PROPERTY_GET_SET,
+  //       tags: REGEXP_TAGS_PROPERTY,
+  //       tagsArea: REGEXP_TAGS_AREA_PROPERTY,
+  //       annotationsEnd: REGEXP_ANNOTATIONS_END_PROPERTY,
+  //       signatureStart: REGEXP_SIGNATURE_START_PROPERTY,
+  //       signatureEnd: REGEXP_SIGNATURE_END_PROPERTY
+  //     }
+  //   ]);
+
+  //   regexps.forEach((regexp: any) => {
+  //     const _properties = extractApexDoc(body, regexp);
+  //     properties = properties.concat(_properties);
+  //   });
+
   return result;
 };
 
@@ -132,6 +164,15 @@ export const buildConstructors = (auth: authorization) => {
       }
     });
   }
+
+  //   return _parseBodyConstructors(body, {
+  //     target: REGEXP_CONSTRUCTOR,
+  //     tags: REGEXP_TAGS_CONSTRUCTOR,
+  //     tagsArea: REGEXP_TAGS_AREA_CONSTRUCTOR,
+  //     annotationsEnd: REGEXP_ANNOTATIONS_END_CONSTRUCTOR,
+  //     signatureStart: REGEXP_SIGNATURE_START_CONSTRUCTOR,
+  //     signatureEnd: REGEXP_SIGNATURE_END_CONSTRUCTOR
+  //   });
 
   return result;
 };
