@@ -11,7 +11,8 @@ const ANNOTATIONS = `[\\@\\w\\(\\=\\'\\/\\)\\n]*`;
 const ANNOTATIONS_END = '\\n\\s+';
 const NAME = `(\\w+)`;
 const VALUE = `(.+(\\s\\(\\)\\.<>,:;='")*)`;
-const BODY_ITEM = `\\s\\*\\s\\@${NAME}\\s${VALUE}\\n`;
+// const BODY_ITEM = `\\s\\*\\s\\@${NAME}\\s${VALUE}\\n`;
+const BODY_ITEM = `\\s\\*\\s@${NAME}\\s${VALUE}\\n`;
 
 const CLASS = {
   OPTIONS: `(extends\\s[\\w<>]+\\s|implements\\s\\w+\\s)*`,
@@ -91,6 +92,7 @@ export const parseJsonApexMember = (auth: authorization) => {
 export const extractApexDoc = (body: any, regexp: any) => {
   body = body.replace(/\r\n?/g, '\n');
   const targetRaws = body.match(regexp.target);
+
   return !targetRaws
     ? []
     : targetRaws.map((raw: any) => {

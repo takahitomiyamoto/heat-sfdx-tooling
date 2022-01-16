@@ -10,7 +10,9 @@
  * @param {*} item
  */
 export const createUlHeaderApexDoc = (params: any) => {
-  const tags = params.item?.tags;
+  // const tags = params.item?.tags;
+  const tags = params.item?.body?.header[0]?.tags;
+
   if (!tags) {
     return { p: '' };
   }

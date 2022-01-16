@@ -168,7 +168,8 @@ export const buildHeaderApexDoc = (auth: authorization) => {
   headerArea.push(tableHeaderApexDoc);
   headerArea.push(ulHeaderApexDoc);
 
-  return headerArea[0];
+  // return headerArea[0];
+  return headerArea;
 };
 
 // TODO: 場所を変える
