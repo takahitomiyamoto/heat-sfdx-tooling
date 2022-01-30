@@ -11,7 +11,7 @@ import { authorization, httpRequest } from 'heat-sfdx-common';
  */
 const setOptionsExecuteGet = (params: authorization): https.RequestOptions => {
   const hostname = params.instanceUrl.replace('https://', '');
-  const path = `/services/data/v${params.options.asOfVersion}`;
+  const path = `/services/data/v${params.options.asOfVersion}/${params.options.url}`;
 
   return {
     hostname: hostname,
@@ -30,7 +30,7 @@ const setOptionsExecuteGet = (params: authorization): https.RequestOptions => {
  */
 const setOptionsExecutePost = (params: authorization): https.RequestOptions => {
   const hostname = params.instanceUrl.replace('https://', '');
-  const path = `/services/data/v${params.options.asOfVersion}`;
+  const path = `/services/data/v${params.options.asOfVersion}/${params.options.url}`;
 
   return {
     hostname: hostname,
