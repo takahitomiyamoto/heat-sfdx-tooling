@@ -13,7 +13,11 @@ import {
   postMetadataContainer
 } from './objects/metadata-container';
 import { getProfile } from './objects/profile';
-import { buildApexClassSpecs, buildApexTriggerSpecs } from './custom-calls';
+import {
+  buildApexClassSpecs,
+  buildApexTriggerSpecs,
+  executeGet
+} from './custom-calls';
 
 export {
   postComposite,
@@ -25,5 +29,6 @@ export {
   postMetadataContainer,
   getProfile,
   buildApexClassSpecs,
-  buildApexTriggerSpecs
+  buildApexTriggerSpecs,
+  executeGet
 };
