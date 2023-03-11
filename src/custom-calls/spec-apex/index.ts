@@ -1,10 +1,8 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
-
 /**
  * index.ts
  */
 import { authorization } from 'heat-sfdx-common';
-import { buildApexSpecs } from './build';
+import { generateApexSpecs } from './generate';
 import { FIELDS } from './config/field';
 
 /**
@@ -38,7 +36,7 @@ export async function buildApexClassSpecs(auth: authorization) {
     auth.options.environment.logs.apexClass.symbolTable;
   auth.options.dir.rawData = auth.options.environment.logs.apexClass.rawData;
 
-  return await buildApexSpecs(auth);
+  return await generateApexSpecs(auth);
 }
 
 /**
@@ -67,5 +65,5 @@ export async function buildApexTriggerSpecs(auth: authorization) {
     auth.options.environment.logs.apexTrigger.symbolTable;
   auth.options.dir.rawData = auth.options.environment.logs.apexTrigger.rawData;
 
-  return await buildApexSpecs(auth);
+  return await generateApexSpecs(auth);
 }

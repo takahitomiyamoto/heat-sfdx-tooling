@@ -3,7 +3,6 @@
 /**
  * common.ts
  */
-import { authorization, readFileSyncUtf8 } from 'heat-sfdx-common';
 import { createApexDocTable } from './table';
 
 const ACCESS_MODIFIER = `[private|protected|public|global]*[\\sabstract|\\svirtual|\\soverride]*[\\sstatic|\\stransient]*[\\sfinal]*[with|without|inherited]*[\\ssharing]*`;
@@ -57,32 +56,120 @@ export const REGEXP = {
   PARAM_COMMA: new RegExp(`,\\n\\s*`, 'g')
 };
 
-/**
- * @description parseJsonApex
- * @param {*} auth
- */
-export const parseJsonApex = (auth: authorization) => {
-  const stringApex = readFileSyncUtf8(`${auth.options.logs.retrieveApex}`);
-  const records = JSON.parse(stringApex).records;
-
-  return !records
-    ? []
-    : records.filter((record: any) => {
-        return auth.options.apexName === record.Name;
-      })[0];
-};
-
-/**
- * @description parseJsonApexMember
- * @param {*} auth
- */
-export const parseJsonApexMember = (auth: authorization) => {
-  const stringApexMember = readFileSyncUtf8(
-    `${auth.options.dir.symbolTable}/${auth.options.apexName}.json`
-  );
-
-  return JSON.parse(stringApexMember);
-};
+// const ACCESS_MODIFIER = `[private|protected|public|global]*[\\sabstract|\\svirtual|\\soverride]*[\\sstatic|\\stransient]*[\\sfinal]*[with|without|inherited]*[\\ssharing]*`;
+// const ANNOTATIONS = `[\\@\\w\\(\\=\\'\\/\\)\\n]*`;
+// const ANNOTATIONS_END = '\\n\\s+';
+// const ASSIGNED_VALUE = `[\\s\\=\\w\\.\\(\\)<>,]*;\\n`;
+// const CLASS_OPTIONS = `(extends\\s[\\w<>]+\\s|implements\\s\\w+\\s)*`;
+// const NAME = `(\\w+)`;
+// const VALUE = `(.+(\\s\\(\\)\\.<>,:;='")*)`;
+// const RETURN_TYPE = `[\\w\\.<>]`;
+// const TAGS_AREA_START = `\\/\\*+\\n`;
+// const TAGS_AREA_END = `\\s+\\*+\\/\\n`;
+// const TAGS_BODY_ITEM = `\\s\\*\\s\\@${NAME}\\s${VALUE}\\n`;
+// const TAGS_BODY = `([${TAGS_BODY_ITEM}]+)`;
+// const SIGNATURE_END = '\n$';
+// const SIGNATURE_START = `^\\s+`;
+// const SIGNATURE_END_CLASS = `\\s*\\{`;
+// const METHOD_PARAMS = `[\\w\\s\\n\\.,<>]*`;
+// const TRIGGER_PARAMS = `[\\w\\s\\n,]+`;
+// // FIXME: https://developer.salesforce.com/docs/atlas.en-us.apexcode.meta/apexcode/apex_classes_properties.htm
+// const GET_SET = `\\s\\{\\s+get;\\sset;\\s\\}\n`;
+// const REGEXP_PARAM_LIST_TYPE = new RegExp(`<+[\\w.]*>+`, 'g');
+// const REGEXP_PARAM_LEFT_PARENTHESIS = new RegExp(`\\(\\n\\s*`, 'g');
+// const REGEXP_PARAM_RIGHT_PARENTHESIS = new RegExp(`\\n\\s*\\)`, 'g');
+// const REGEXP_PARAM_COMMA = new RegExp(`,\\n\\s*`, 'g');
+// const REGEXP_HEADER_CLASS = new RegExp(
+//   `^${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `${ANNOTATIONS}` +
+//     `${ACCESS_MODIFIER}` +
+//     `\\sclass\\s${NAME}\\s${CLASS_OPTIONS}${SIGNATURE_END_CLASS}`,
+//   'g'
+// );
+// const REGEXP_HEADER_TRIGGER = new RegExp(
+//   `^${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `${ANNOTATIONS}` +
+//     `trigger\\s${NAME}\\son\\s${NAME}\\(${TRIGGER_PARAMS}\\)${SIGNATURE_END_CLASS}`,
+//   'g'
+// );
+// const REGEXP_INNER_CLASS = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `\\s+${ANNOTATIONS}` +
+//     `\\s+${ACCESS_MODIFIER}` +
+//     `\\sclass\\s${NAME}\\s${CLASS_OPTIONS}${SIGNATURE_END_CLASS}`,
+//   'g'
+// );
+// const REGEXP_PROPERTY = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `\\s+${ANNOTATIONS}` +
+//     `\\s+${ACCESS_MODIFIER}` +
+//     `\\s${RETURN_TYPE}+\\s${NAME}${ASSIGNED_VALUE}`,
+//   'g'
+// );
+// const REGEXP_PROPERTY_GET_SET = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `\\s+${ANNOTATIONS}` +
+//     `\\s+${ACCESS_MODIFIER}` +
+//     `\\s${RETURN_TYPE}+\\s${NAME}${GET_SET}`,
+//   'g'
+// );
+// const REGEXP_CONSTRUCTOR = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `\\s+${ANNOTATIONS}` +
+//     `\\s+${ACCESS_MODIFIER}` +
+//     `\\s${NAME}\\(${METHOD_PARAMS}\\)${SIGNATURE_END_CLASS}`,
+//   'g'
+// );
+// const REGEXP_METHOD = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}` +
+//     `\\s+${ANNOTATIONS}` +
+//     `\\s+${ACCESS_MODIFIER}` +
+//     `\\s${RETURN_TYPE}+\\s${NAME}\\(${METHOD_PARAMS}\\)${SIGNATURE_END_CLASS}`,
+//   'g'
+// );
+// const REGEXP_TAGS_HEADER = new RegExp(TAGS_BODY_ITEM, 'g');
+// const REGEXP_TAGS_INNER_CLASS = new RegExp(TAGS_BODY_ITEM, 'g');
+// const REGEXP_TAGS_PROPERTY = new RegExp(TAGS_BODY_ITEM, 'g');
+// const REGEXP_TAGS_CONSTRUCTOR = new RegExp(TAGS_BODY_ITEM, 'g');
+// const REGEXP_TAGS_METHOD = new RegExp(TAGS_BODY_ITEM, 'g');
+// const REGEXP_TAGS_AREA_HEADER = new RegExp(
+//   `${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}`,
+//   'g'
+// );
+// const REGEXP_TAGS_AREA_INNER_CLASS = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}`,
+//   'g'
+// );
+// const REGEXP_TAGS_AREA_PROPERTY = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}`,
+//   'g'
+// );
+// const REGEXP_TAGS_AREA_CONSTRUCTOR = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}`,
+//   'g'
+// );
+// const REGEXP_TAGS_AREA_METHOD = new RegExp(
+//   `\\s+${TAGS_AREA_START}${TAGS_BODY}${TAGS_AREA_END}`,
+//   'g'
+// );
+// const REGEXP_ANNOTATIONS_END_HEADER = new RegExp(ANNOTATIONS_END);
+// const REGEXP_ANNOTATIONS_END_INNER_CLASS = new RegExp(ANNOTATIONS_END);
+// const REGEXP_ANNOTATIONS_END_PROPERTY = new RegExp(ANNOTATIONS_END);
+// const REGEXP_ANNOTATIONS_END_CONSTRUCTOR = new RegExp(ANNOTATIONS_END);
+// const REGEXP_ANNOTATIONS_END_METHOD = new RegExp(ANNOTATIONS_END);
+// const REGEXP_SIGNATURE_START_HEADER = '';
+// const REGEXP_SIGNATURE_START_INNER_CLASS = new RegExp(SIGNATURE_START);
+// const REGEXP_SIGNATURE_START_PROPERTY = new RegExp(SIGNATURE_START);
+// const REGEXP_SIGNATURE_START_CONSTRUCTOR = new RegExp(SIGNATURE_START);
+// const REGEXP_SIGNATURE_START_METHOD = new RegExp(SIGNATURE_START);
+// const REGEXP_SIGNATURE_END_HEADER = new RegExp(SIGNATURE_END_CLASS);
+// const REGEXP_SIGNATURE_END_INNER_CLASS = new RegExp(SIGNATURE_END_CLASS);
+// const REGEXP_SIGNATURE_END_PROPERTY = new RegExp(SIGNATURE_END);
+// const REGEXP_SIGNATURE_END_CONSTRUCTOR = new RegExp(SIGNATURE_END_CLASS);
+// const REGEXP_SIGNATURE_END_METHOD = new RegExp(SIGNATURE_END_CLASS);
+// const REGEXP_KEY_START_METHOD = new RegExp(
+//   `${ANNOTATIONS}${ACCESS_MODIFIER}\\s${RETURN_TYPE}+\\s`
+// );
 
 /**
  * @description extractApexDoc

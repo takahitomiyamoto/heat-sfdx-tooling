@@ -4,7 +4,6 @@
  * title.ts
  */
 import { authorization } from 'heat-sfdx-common';
-import { parseJsonApexMember } from './common';
 
 /*********************
  * TITLE
@@ -17,8 +16,7 @@ export const TITLE = {
   METHODS: 'Methods'
 };
 
-export const buildTitle = (auth: authorization) => {
-  const jsonApexMember = parseJsonApexMember(auth);
+export const buildTitle = (auth: authorization, jsonApexMember: any) => {
   const title = `${jsonApexMember.name}${auth.options.fileExtension}`;
   return { h1: title };
 };

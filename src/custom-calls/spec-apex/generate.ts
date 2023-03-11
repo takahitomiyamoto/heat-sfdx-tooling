@@ -1,8 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 /**
- * index.ts
+ * generate.ts
  */
 import { authorization } from 'heat-sfdx-common';
 import { asyncCreateMetadataContainerId } from './api/async-create';
@@ -14,10 +13,10 @@ const COMPOSITE_OPERATIONS_LIMIT = 25;
 const MANAGED = ['beta', 'deleted', 'deprecated', 'released', 'installed'];
 
 /**
- * @description buildApexSpecs
+ * @description generateApexSpecs
  * @param auth
  */
-export async function buildApexSpecs(auth: authorization) {
+export async function generateApexSpecs(auth: authorization) {
   // create MetadataContainerId
   auth.options.logs.createMetadataContainer =
     auth.options.environment.logs.createMetadataContainer;

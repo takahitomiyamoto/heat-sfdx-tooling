@@ -1,6 +1,4 @@
-// TODO:
 /* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 
 /**
  * table.ts
@@ -43,7 +41,7 @@ const NO_DATA =
  * @description createParameters
  * @param {*} parameters
  */
-// TODO: 可能ならparse.tsに
+// TODO High: 可能ならparse.tsに
 export const createParameters = (parameters: any) => {
   return !parameters
     ? []
@@ -175,7 +173,7 @@ const createApexDocTableRows = (item: any) => {
  * @param {*} func
  */
 const createConstructorsTableRows = (item: any, func: any) => {
-  // TODO: リファクタリング
+  // TODO High: リファクタリング
   return !item?.length
     ? [func.createTableRow(item)]
     : item.map((cons: any) => {

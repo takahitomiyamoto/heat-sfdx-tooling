@@ -1,12 +1,10 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
 /**
  * docs.ts
  */
 import json2md from 'json2md';
 import { authorization, writeFileSyncUtf8 } from 'heat-sfdx-common';
-import { buildTitle } from './md/title';
-import { buildHeader, buildHeaderApexDoc, outputBody } from './md/header';
 import {
   buildExternalReferences,
   buildInnerClasses,
@@ -14,7 +12,9 @@ import {
   buildConstructors,
   buildMethods
 } from './md/body';
-import { parseJsonApex, parseJsonApexMember } from './parse';
+import { buildHeader, buildHeaderApexDoc, outputBody } from './md/header';
+import { parseJsonApex, parseJsonApexMember } from './md/parse';
+import { buildTitle } from './md/title';
 
 /**
  * @description generateMarkdownSpecs
@@ -22,47 +22,57 @@ import { parseJsonApex, parseJsonApexMember } from './parse';
  */
 const generateMarkdownSpecs = (auth: authorization) => {
   const md = [];
+  const jsonApex = parseJsonApex(auth);
+  const jsonApexMember = parseJsonApexMember(auth);
 
   // # Title
-  md.push(buildTitle(auth));
+  md.push(buildTitle(auth, jsonApexMember));
 
   // ## Header
-  md.push(buildHeader(auth));
+  md.push(buildHeader(auth, jsonApex, jsonApexMember));
   md.push({ p: '<br>' });
 
-  md.push(buildHeaderApexDoc(auth));
+  md.push(buildHeaderApexDoc(auth, jsonApex, jsonApexMember));
   md.push({ p: '<br>' });
 
-  // TODO: 表示内容をON／OFFできるようにする
+  // TODO Low: 表示内容をON／OFFできるようにする
 
   // ## External References
-  md.push(buildExternalReferences(auth));
+  md.push(buildExternalReferences(auth, jsonApexMember));
   md.push({ p: '<br>' });
 
-  const jsonApexMember = parseJsonApexMember(auth);
-  const jsonApex = parseJsonApex(auth);
-
   if ('ApexClass' === jsonApex.attributes.type) {
-    // ## InnerClasses
-    md.push(buildInnerClasses(auth));
+    // ## Properties
+    md.push(buildProperties(auth, jsonApexMember));
     md.push({ p: '<br>' });
 
-    // ## Properties
-    md.push(buildProperties(auth));
-    md.push({ p: '<br>' });
+    // TODO High: Properties の ApexDoc
 
     // ## Constructors
-    md.push(buildConstructors(auth));
+    md.push(buildConstructors(auth, jsonApexMember));
     md.push({ p: '<br>' });
 
+    // TODO High: Constructors の ApexDoc
+
     // ## Methods
-    md.push(buildMethods(auth));
+    md.push(buildMethods(auth, jsonApexMember));
     md.push({ p: '<br>' });
+
+    // TODO High: Methods の ApexDoc
+
+    // ## InnerClasses
+    md.push(buildInnerClasses(auth, jsonApexMember));
+    md.push({ p: '<br>' });
+
+    // TODO Medium: ### InnerClasses - External References
+    // TODO Medium: ### InnerClasses - Properties
+    // TODO Medium: ### InnerClasses - Constructors
+    // TODO Medium: ### InnerClasses - Methods
   }
 
   // ## Body - debug only
   if (auth.options.verbose) {
-    md.push(outputBody(auth));
+    md.push(outputBody(auth, jsonApex, jsonApexMember));
   }
 
   // archive

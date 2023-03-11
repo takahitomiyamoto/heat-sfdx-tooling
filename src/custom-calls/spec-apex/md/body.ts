@@ -4,7 +4,7 @@
  * body.ts
  */
 import { authorization } from 'heat-sfdx-common';
-import { parseJsonApexMember, getAnnotations, getModifiers } from './common';
+import { getAnnotations, getModifiers } from './common';
 import { TITLE } from './title';
 import {
   TABLE_HEADER,
@@ -16,8 +16,10 @@ import {
 
 const NOT_APPLICABLE = 'N/A';
 
-export const buildExternalReferences = (auth: authorization) => {
-  const jsonApexMember = parseJsonApexMember(auth);
+export const buildExternalReferences = (
+  auth: authorization,
+  jsonApexMember: any
+) => {
   const _items = jsonApexMember.externalReferences;
 
   const result = [];
@@ -58,8 +60,8 @@ export const buildExternalReferences = (auth: authorization) => {
   return result;
 };
 
-export const buildInnerClasses = (auth: authorization) => {
-  const jsonApexMember = parseJsonApexMember(auth);
+// TODO High: うまく表示できてない
+export const buildInnerClasses = (auth: authorization, jsonApexMember: any) => {
   const _items = jsonApexMember.innerClasses;
 
   const result = [];
@@ -89,11 +91,74 @@ export const buildInnerClasses = (auth: authorization) => {
   //     innerClasses: innerClasses
   //   };
 
+  // /**
+  //  * @description createInnerClasses
+  //  * @param {*} params
+  //  */
+  // export const createInnerClasses = (params: any) => {
+  //   const innerClasses = params.items;
+  //   const body = params.body;
+
+  //   return !innerClasses
+  //     ? []
+  //     : innerClasses.map((inne: any) => {
+  //         const innerClass = {
+  //           annotations: inne.tableDeclaration.annotations,
+  //           modifiers: inne.tableDeclaration.modifiers,
+  //           name: inne.name,
+  //           parentClass: inne.parentClass,
+  //           interfaces: inne.interfaces
+  //         };
+
+  //         const result = [];
+  //         result.push(
+  //           createTarget({
+  //             item: innerClass,
+  //             body: body,
+  //             func: {
+  //               fetchItem: fetchItem,
+  //               createTitle: _createTitle,
+  //               createTableTarget: createClassTable
+  //             }
+  //           })
+  //         );
+  //         result.push([
+  //           createInnerExternalReferencesArea(inne.externalReferences)
+  //         ]);
+  //         result.push([createInnerConstructorsArea(inne.constructors)]);
+  //         result.push([createInnerPropertiesArea(inne.properties)]);
+
+  //         return result;
+  //       });
+  // };
+
+  // /**
+  //  * @description parseBodyInnerClasses
+  //  * @param {*} body
+  //  */
+  // export const parseBodyInnerClasses = (body: any) => {
+  //   const regexp = {
+  //     target: REGEXP_INNER_CLASS,
+  //     tags: REGEXP_TAGS_INNER_CLASS,
+  //     tagsArea: REGEXP_TAGS_AREA_INNER_CLASS,
+  //     annotationsEnd: REGEXP_ANNOTATIONS_END_INNER_CLASS,
+  //     signatureStart: REGEXP_SIGNATURE_START_INNER_CLASS,
+  //     signatureEnd: REGEXP_SIGNATURE_END_INNER_CLASS
+  //   };
+
+  //   const innerClasses = extractApexDoc(body, regexp);
+  //   // console.info(`\n## Inner Class`);
+  //   // console.info(JSON.stringify(innerClasses));
+
+  //   return {
+  //     innerClasses: innerClasses
+  //   };
+  // };
+
   return result;
 };
 
-export const buildProperties = (auth: authorization) => {
-  const jsonApexMember = parseJsonApexMember(auth);
+export const buildProperties = (auth: authorization, jsonApexMember: any) => {
   const _items = jsonApexMember.properties;
 
   const result = [];
@@ -142,8 +207,7 @@ export const buildProperties = (auth: authorization) => {
   return result;
 };
 
-export const buildConstructors = (auth: authorization) => {
-  const jsonApexMember = parseJsonApexMember(auth);
+export const buildConstructors = (auth: authorization, jsonApexMember: any) => {
   const _items = jsonApexMember.constructors;
 
   const result = [];
@@ -177,8 +241,7 @@ export const buildConstructors = (auth: authorization) => {
   return result;
 };
 
-export const buildMethods = (auth: authorization) => {
-  const jsonApexMember = parseJsonApexMember(auth);
+export const buildMethods = (auth: authorization, jsonApexMember: any) => {
   const _items = jsonApexMember.methods;
 
   const result = [];
