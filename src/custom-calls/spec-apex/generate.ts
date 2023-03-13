@@ -36,7 +36,7 @@ export async function generateApexSpecs(auth: authorization) {
   let start = 0;
 
   while (start < size) {
-    auth.options.apex = apexRecordsNotManaged.slice(start, start + scope - 1);
+    auth.options.apex = apexRecordsNotManaged.slice(start, start + scope);
     const end = size < start + scope ? size : start + scope;
     console.info(`[INFO] generating Apex spec docs... [${start + 1}-${end}]`);
 
