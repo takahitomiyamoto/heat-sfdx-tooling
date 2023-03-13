@@ -32,8 +32,15 @@ export async function generateApexSpecs(auth: authorization) {
   const size = apexRecordsNotManaged?.length;
   const scope = COMPOSITE_OPERATIONS_LIMIT;
   let start = 0;
+  if (auth.options.verbose) {
+    console.info(`Apex本数: ${size}`);
+  }
   while (start < Math.ceil(size / scope)) {
     auth.options.apex = apexRecordsNotManaged.slice(start, start + scope - 1);
+    if (auth.options.verbose) {
+      console.info(`仕様書作成中... [${start + 1}-${start + scope}]`);
+      console.info(`${auth.options.apex}`);
+    }
 
     /**
      * 1. create ApexClassMembers / ApexTriggerMembers
