@@ -21,7 +21,7 @@ const COMPLETED = 'Completed';
  * @param {*} sec
  */
 const sleep = (sec: number) => {
-  console.info(`[INFO] just give me ${sec} more seconds...`);
+  console.log(`just give me ${sec} more seconds...`);
   return new Promise((resolve) => setTimeout(resolve, sec * 1000, ''));
 };
 

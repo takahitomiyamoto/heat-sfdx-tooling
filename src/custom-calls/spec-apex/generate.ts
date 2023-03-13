@@ -30,16 +30,15 @@ export async function generateApexSpecs(auth: authorization) {
     return !MANAGED.includes(r.ManageableState);
   });
   const size: number = apexRecordsNotManaged?.length;
-  console.info(`Count of Apex files: ${size}`);
+  console.info(`[INFO] Count of Apex files: ${size}`);
 
   const scope = COMPOSITE_OPERATIONS_LIMIT;
   let start = 0;
 
   while (start < size) {
     auth.options.apex = apexRecordsNotManaged.slice(start, start + scope - 1);
-    console.info(
-      `generating Apex spec docs... [${start + 1}-${start + scope}]`
-    );
+    const end = size < start + scope ? size : start + scope;
+    console.info(`[INFO] generating Apex spec docs... [${start + 1}-${end}]`);
 
     /**
      * 1. create ApexClassMembers / ApexTriggerMembers
