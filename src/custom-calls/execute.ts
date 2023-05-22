@@ -13,6 +13,11 @@ const setOptionsExecuteGet = (params: authorization): https.RequestOptions => {
   const hostname = params.instanceUrl.replace('https://', '');
   const path = `/services/data/v${params.options.asOfVersion}${params.options.url}`;
 
+  if (params.options.verbose) {
+    console.info(`hostname: ${hostname}`);
+    console.info(`path: ${path}`);
+  }
+
   return {
     hostname: hostname,
     path: path,
