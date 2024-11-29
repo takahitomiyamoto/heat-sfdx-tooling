@@ -42,9 +42,8 @@ export async function runBatch(auth: authorization) {
   auth.options.body.MetadataContainerId = auth.options.metadataContainerId;
   auth.options.body.IsCheckOnly = true;
 
-  const containerAsyncRequestId = await asyncCreateContainerAsyncRequestId(
-    auth
-  );
+  const containerAsyncRequestId =
+    await asyncCreateContainerAsyncRequestId(auth);
 
   // retrieve ContainerAsyncRequest - State
   let containerAsyncRequest;

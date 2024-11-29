@@ -7,7 +7,7 @@ import { FIELDS } from './config/field';
 
 /**
  * @description buildApexClassSpecs
- * @param params
+ * @param auth
  */
 export async function buildApexClassSpecs(auth: authorization) {
   auth.options.apexType = 'ApexClass';
@@ -41,7 +41,7 @@ export async function buildApexClassSpecs(auth: authorization) {
 
 /**
  * @description buildApexTriggerSpecs
- * @param params
+ * @param auth
  */
 export async function buildApexTriggerSpecs(auth: authorization) {
   auth.options.apexType = 'ApexTrigger';
